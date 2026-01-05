@@ -1,65 +1,82 @@
-import Image from "next/image";
+import Link from 'next/link'
+import { Mail, Sparkles, Clock, ArrowRight } from 'lucide-react'
 
-export default function Home() {
+export default function LandingPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
+      <div className="relative overflow-hidden">
+        {/* Animated background */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-20 left-20 w-72 h-72 bg-amber-200 rounded-full filter blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-yellow-200 rounded-full filter blur-3xl animate-pulse"></div>
+        </div>
+
+        {/* Header */}
+        <nav className="relative z-10 px-6 py-6 flex justify-between items-center max-w-7xl mx-auto">
+          <div className="flex items-center gap-2 text-amber-900">
+            <Sparkles className="w-8 h-8" />
+            <span className="text-2xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+              NewsletterHub
+            </span>
+          </div>
+          <Link
+            href="/auth/signin"
+            className="px-6 py-2.5 bg-amber-900/10 backdrop-blur-sm text-amber-900 rounded-full hover:bg-amber-900/20 transition-all duration-300 flex items-center gap-2 border border-amber-900/20"
+          >
+            Sign In
+          </Link>
+        </nav>
+
+        {/* Hero Content */}
+        <div className="relative z-10 max-w-5xl mx-auto px-6 py-24 text-center">
+          <div className="inline-block mb-4 px-4 py-2 bg-amber-200/50 backdrop-blur-sm rounded-full border border-amber-300/50">
+            <span className="text-amber-800 text-sm font-medium">✨ Curated insights, delivered beautifully</span>
+          </div>
+          
+          <h1 className="text-6xl md:text-7xl font-bold text-amber-900 mb-6 leading-tight">
+            Your Premium
+            <span className="block bg-gradient-to-r from-amber-600 via-orange-600 to-yellow-600 bg-clip-text text-transparent">
+              Newsletter Collection
+            </span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          
+          <p className="text-xl text-amber-800 mb-12 max-w-2xl mx-auto leading-relaxed">
+            Access exclusive insights, stories, and updates crafted just for you. 
+            Sign up to unlock a world of curated content.
           </p>
+
+          <div className="flex gap-4 justify-center flex-wrap">
+            <Link
+              href="/auth/signup"
+              className="group px-8 py-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-full hover:shadow-2xl hover:shadow-amber-500/50 transition-all duration-300 flex items-center gap-2 text-lg font-semibold"
+            >
+              Get Started Free
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <Link
+              href="/auth/signin"
+              className="px-8 py-4 bg-amber-900/10 backdrop-blur-sm text-amber-900 rounded-full hover:bg-amber-900/20 transition-all duration-300 border border-amber-900/20 text-lg font-semibold"
+            >
+              Sign In
+            </Link>
+          </div>
+
+          {/* Feature cards */}
+          <div className="grid md:grid-cols-3 gap-6 mt-24 text-left">
+            {[
+              { icon: Mail, title: "Curated Content", desc: "Hand-picked newsletters with the best insights" },
+              { icon: Sparkles, title: "Beautiful Design", desc: "Elegant reading experience on any device" },
+              { icon: Clock, title: "Always Updated", desc: "New content delivered as it's published" }
+            ].map((feature, idx) => (
+              <div key={idx} className="p-6 bg-white/60 backdrop-blur-sm rounded-2xl border border-amber-200 hover:bg-white/80 transition-all duration-300 group hover:shadow-lg">
+                <feature.icon className="w-10 h-10 text-amber-600 mb-4 group-hover:scale-110 transition-transform" />
+                <h3 className="text-amber-900 text-lg font-semibold mb-2">{feature.title}</h3>
+                <p className="text-amber-700">{feature.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </div>
     </div>
-  );
+  )
 }
