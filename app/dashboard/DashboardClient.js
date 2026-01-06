@@ -125,20 +125,23 @@ export default function DashboardClient({ user, initialNewsletters }) {
       {/* Newsletter Detail Modal */}
       {selectedNewsletter && (
         <div className="fixed inset-0 bg-amber-950/50 backdrop-blur-sm z-50 flex items-center justify-center p-6 overflow-y-auto">
-          <div className="bg-gradient-to-br from-white/95 to-amber-50/95 rounded-3xl max-w-3xl w-full border border-amber-200 shadow-2xl my-8">
+          <div className="relative bg-gradient-to-br from-white/95 to-amber-50/95 rounded-3xl max-w-3xl w-full border border-amber-200 shadow-2xl my-8 max-h-[85vh] overflow-y-auto">
             <div className="p-8">
-              <div className="flex justify-between items-start mb-6">
+              <div className="sticky top-0 z-10 -mx-8 -mt-8 mb-6 px-8 pt-8 pb-4 bg-gradient-to-br from-white/95 to-amber-50/95">
+                <div className="flex justify-between items-start">
                 {selectedNewsletter.category && (
                   <span className="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm font-medium border border-amber-200">
                     {selectedNewsletter.category}
                   </span>
                 )}
-                <button
-                  onClick={() => setSelectedNewsletter(null)}
-                  className="text-amber-400 hover:text-amber-700 transition-colors text-2xl"
-                >
-                  X
-                </button>
+                  <button
+                    onClick={() => setSelectedNewsletter(null)}
+                    className="text-amber-400 hover:text-amber-700 transition-colors text-2xl"
+                    aria-label="Close newsletter"
+                  >
+                    X
+                  </button>
+                </div>
               </div>
 
               <h2 className="text-4xl font-bold text-amber-900 mb-4">{selectedNewsletter.title}</h2>
