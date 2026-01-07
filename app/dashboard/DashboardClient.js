@@ -4,6 +4,9 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase'
 import { Sparkles, LogOut, Clock, ArrowRight } from 'lucide-react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import rehypeRaw from 'rehype-raw'
 
 export default function DashboardClient({ user, initialNewsletters }) {
   const [newsletters, setNewsletters] = useState(initialNewsletters)
@@ -159,11 +162,13 @@ export default function DashboardClient({ user, initialNewsletters }) {
                 <span>{formatDate(selectedNewsletter.created_at)}</span>
               </div>
 
-              <div className="prose max-w-none">
-                <div className="text-amber-900 text-lg leading-relaxed whitespace-pre-wrap">
-                  {selectedNewsletter.content}
-                </div>
-              </div>
+              <ReactMarkdown
+                className="prose max-w-none text-amber-900 text-lg leading-relaxed"
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeRaw]}
+              >
+                {selectedNewsletter.content}
+              </ReactMarkdown>
             </div>
           </div>
         </div>
