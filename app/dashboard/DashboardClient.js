@@ -13,6 +13,27 @@ export default function DashboardClient({ user, initialNewsletters }) {
   const [selectedNewsletter, setSelectedNewsletter] = useState(null)
   const router = useRouter()
   const supabase = createClient()
+  const markdownComponents = {
+    h1: (props) => <h1 className="text-3xl font-bold text-amber-900 mb-4" {...props} />,
+    h2: (props) => <h2 className="text-2xl font-bold text-amber-900 mb-4" {...props} />,
+    h3: (props) => <h3 className="text-xl font-semibold text-amber-900 mb-3" {...props} />,
+    h4: (props) => <h4 className="text-lg font-semibold text-amber-900 mb-3" {...props} />,
+    p: (props) => <p className="text-amber-900 mb-4 last:mb-0" {...props} />,
+    ul: (props) => <ul className="list-disc pl-6 mb-4 text-amber-900" {...props} />,
+    ol: (props) => <ol className="list-decimal pl-6 mb-4 text-amber-900" {...props} />,
+    li: (props) => <li className="mb-1" {...props} />,
+    strong: (props) => <strong className="font-semibold text-amber-900" {...props} />,
+    em: (props) => <em className="italic text-amber-900" {...props} />,
+    a: (props) => (
+      <a
+        className="text-amber-700 underline decoration-amber-400 hover:text-amber-900 transition-colors"
+        {...props}
+      />
+    ),
+    blockquote: (props) => (
+      <blockquote className="border-l-4 border-amber-300 pl-4 italic text-amber-800 mb-4" {...props} />
+    )
+  }
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
@@ -163,7 +184,8 @@ export default function DashboardClient({ user, initialNewsletters }) {
               </div>
 
               <ReactMarkdown
-                className="prose max-w-none text-amber-900 text-lg leading-relaxed"
+                className="text-amber-900 text-lg leading-relaxed"
+                components={markdownComponents}
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeRaw]}
               >
